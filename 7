@@ -1,0 +1,94 @@
+// Base class Circle
+class Circle {
+    private double radius;
+    private String color;
+
+    // Constructors
+    public Circle(double radius) {
+        this.radius = radius;
+        this.color = "red"; // Default color
+    }
+
+    public Circle(double radius, String color) {
+        this.radius = radius;
+        this.color = color;
+    }
+
+    // Getter methods
+    public double getRadius() {
+        return radius;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    // Method to calculate the area of the circle
+    public double getArea() {
+        return Math.PI * radius * radius;
+    }
+}
+
+// Subclass Cylinder
+class Cylinder extends Circle {
+    private double height;
+
+    // Constructors
+    public Cylinder(double height, double radius) {
+        super(radius); // Calling the base class constructor
+        this.height = height;
+    }
+
+    public Cylinder(double height, double radius, String color) {
+        super(radius, color); // Calling the base class constructor
+        this.height = height;
+    }
+
+    // Getter method for height
+    public double getHeight() {
+        return height;
+    }
+
+    // Method to calculate the volume of the cylinder
+    public double getVolume() {
+        return getArea() * height; // Area of the base * height
+    }
+
+    @Override
+    public double getArea() {
+        // Total surface area of the cylinder: 2πrh + 2πr²
+        double radius = getRadius();
+        return (2 * Math.PI * radius * height) + (2 * super.getArea());
+    }
+}
+
+// Main class to demonstrate the program
+public class LabProgram7 {
+    public static void main(String[] args) {
+        // Create two cylinder instances
+        Cylinder cylinder1 = new Cylinder(10.0, 5.0, "blue");
+        Cylinder cylinder2 = new Cylinder(10.0, 5.0, "blue");
+
+        // Display their properties
+        System.out.println("Cylinder 1:");
+        System.out.println("Radius: " + cylinder1.getRadius());
+        System.out.println("Height: " + cylinder1.getHeight());
+        System.out.println("Color: " + cylinder1.getColor());
+        System.out.println("Area: " + cylinder1.getArea());
+        System.out.println("Volume: " + cylinder1.getVolume());
+
+        System.out.println("\nCylinder 2:");
+        System.out.println("Radius: " + cylinder2.getRadius());
+        System.out.println("Height: " + cylinder2.getHeight());
+        System.out.println("Color: " + cylinder2.getColor());
+        System.out.println("Area: " + cylinder2.getArea());
+        System.out.println("Volume: " + cylinder2.getVolume());
+
+        // Check if the cylinders are similar
+        boolean areSimilar = (cylinder1.getArea() == cylinder2.getArea()) &&
+                             (cylinder1.getVolume() == cylinder2.getVolume()) &&
+                             (cylinder1.getColor().equals(cylinder2.getColor()));
+
+        System.out.println("\nAre the two cylinders similar? " + (areSimilar ? "Yes" : "No"));
+    }
+}
